@@ -1,0 +1,119 @@
+
+
+
+
+
+Desafio 1 - 
+Tecnologia: .NET Core e SQL Server
+Objetivo: Criar uma API RESTful para cadastro de notícias.
+Design de Solução e Padrões de Projeto: Escolha Livre
+Biblioteca para Acesso a Dados: Escolha Livre
+Autenticação: Escolha Livre (poderá ser fixo em código, arquivo de configuração, banco de dados)
+
+As notícias serão classificadas em:
+1. Cotidiano
+2. Política
+3. Internacional
+4. Saúde
+5. Games
+6. Outros
+
+Uma notícia poderá ter mais de uma classificação. Ex.: Cotidiano e Internacional
+
+Uma notícia ao ser incluída não poderá ter mais de uma classificação caso seja classificada como Outros - OK!
+Apenas usuários administradores poderão alterar e/ou excluir uma notícia - OK!
+Apenas usuários editores poderão incluir e alterar uma notícia - OK!
+Usuários Administradores e Editores poderão Recuperar Todas as notícias da base independente da classificação - OK!
+Usuários Autenticados poderão recuperar até 50 notícias da base independente da classificação
+Usuários anônimos poderão recuperar até 10 notícias da base independente da classificação e visualizar apenas os títulos das notícias. - OK!
+
+Todas as consultas deverão ser retornadas por padrão em ordem cronológica inversa.
+
+Criar rotina de autenticação na api contendo 2 usuários
+1. login: usuario_comum / senha: usuario_comum
+2. login: usuario_adm / senha: usuario_adm
+3. login: usuario_editor / senha: usuario_editor
+
+A consulta de notícia deverá retornar por padrão o seguinte contrato
+titulo: string
+notícia: string
+dataCadastro: datetime
+classificação: array[string]
+
+
+Desafio 2 -
+Criar um Serviço do Windows (Worker) que deverá, a cada 30 minutos, de segunda a sexta, das 9 às 23 horas fazer um select na base de dados e identificar todas as notícias que foram classificadas como Outros e emitir um alerta, por e-mail, para o usuário administrador.
+As configurações de email como smtp, usuário, senha e email de destino deverão ser configuráveis via arquivo de configuração. Nenhuma configuração deverá ser entregue preenchida (todas em branco). A configuração da execução se possível também deverá permitir alteração via arquivo de configuração.
+
+
+Desafio 3 -
+Incluir em cada Desafio um Logger que deverá registrar cada ação principal como Information, Bad Requests como Warning e os erros gerais como Error contendo a Exception gerada.
+Se possível incluir um Logger que permita múltiplos appenders, permitindo ativar logs em arquivo, console e banco de dados de acordo com a configuração da implantação.
+
+
+
+
+------------------- PARA OS TESTES -----------------
+
+As notícias serão classificadas em:
+1. Cotidiano
+2. Política
+3. Internacional
+4. Saúde
+5. Games
+6. Outros
+
+
+
+
+
+
+Criar rotina de autenticação na api contendo 2 usuários
+1. login: usuario_comum / senha: usuario_comum
+2. login: usuario_adm / senha: usuario_adm
+3. login: usuario_editor / senha: usuario_editor
+
+4. login: usuario_anonimo/ senha: usuario_anonimo
+
+1. Cotidiano
+2. Política
+3. Internacional
+4. Saúde
+5. Games
+6. Outros
+
+
+titulo: string
+notícia: string
+dataCadastro: datetime
+classificação: array[string]
+
+
+------------------- TESTES -----------------
+
+
+usuario_adm
+
+{
+  "titulo": "Insert",
+  "infoNoticia": "Noticia inserida pelo editor",
+  "classificacao": [
+    {
+      "classifNoticia": "Internacional"
+    }
+  ]
+}
+
+
+{
+  "titulo": "Outras noticias",
+  "infoNoticia": "Outras noticias inseridas pelo editor",
+  "classificacao": [
+    {
+      "classifNoticia": "Saúde"
+    },
+    {
+      "classifNoticia": "Outros"
+    }
+  ]
+}
