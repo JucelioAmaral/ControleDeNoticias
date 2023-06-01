@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using WebApiLBCA.Aplicacao.Contrato;
 using WebApiLBCA.Aplicacao.DTOs;
@@ -10,7 +11,7 @@ using WebApiLBCA.Aplicacao.DTOs;
 namespace WebApiLBCA.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class NoticiaController : ControllerBase
     {
         private readonly INoticiaServico _noticiaServico;
@@ -29,10 +30,9 @@ namespace WebApiLBCA.Controllers
         {
             try
             {
-                string acao = "Get";
-                if (_usuarioServico.VerificaPermissaoDoLoginDoUsuario(acao, login))
+                if (_usuarioServico.VerificaPermissaoDoLoginDoUsuario(HttpMethods.Get, login))
                 {
-                    if (_usuarioServico.VerificaPermissaoDeRecuperarTodasNoticias(acao, login))
+                    if (_usuarioServico.VerificaPermissaoDeRecuperarTodasNoticias(HttpMethods.Get, login))
                     {
                         var noticia = await _noticiaServico.ObtemNoticiaServico();
                         if (noticia == null) return NoContent();
@@ -61,9 +61,7 @@ namespace WebApiLBCA.Controllers
         {
             try
             {
-                string acao = "Post";
-
-                if (_usuarioServico.VerificaPermissaoDoLoginDoUsuario(acao, login))
+                if (_usuarioServico.VerificaPermissaoDoLoginDoUsuario(HttpMethods.Post, login))
                 {
                     if (await _usuarioServico.VerificaAutenticacaoUsuario(login, senha))
                     {
@@ -95,9 +93,7 @@ namespace WebApiLBCA.Controllers
         {
             try
             {
-                string acao = "Put";
-
-                if (_usuarioServico.VerificaPermissaoDoLoginDoUsuario(acao, login))
+                if (_usuarioServico.VerificaPermissaoDoLoginDoUsuario(HttpMethods.Put, login))
                 {
                     if (await _usuarioServico.VerificaAutenticacaoUsuario(login, senha))
                     {
@@ -122,9 +118,7 @@ namespace WebApiLBCA.Controllers
         {
             try
             {
-                string acao = "Delete";
-
-                if (_usuarioServico.VerificaPermissaoDoLoginDoUsuario(acao, login))
+                if (_usuarioServico.VerificaPermissaoDoLoginDoUsuario(HttpMethods.Delete, login))
                 {
                     if (await _usuarioServico.VerificaAutenticacaoUsuario(login, senha))
                     {

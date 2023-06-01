@@ -55,7 +55,7 @@ namespace WebApiLBCA.Aplicacao
             }
         }
 
-        public bool VerificaPermissaoDoLoginDoUsuario(string acao, string usuario)
+        public bool VerificaPermissaoDoLoginDoUsuario(string verbo, string usuario)
         {
             try
             {
@@ -64,11 +64,11 @@ namespace WebApiLBCA.Aplicacao
                     case "usuario_comum":
                         return false;
                     case "usuario_adm":
-                        return VerificaPermissaoDeAlterarEExcluir(acao, usuario);
+                        return VerificaPermissaoDeAlterarEExcluir(verbo, usuario);
                     case "usuario_editor":
-                        return VerificaPermissaoDeInclusaoEAlteracao(acao, usuario);
+                        return VerificaPermissaoDeInclusaoEAlteracao(verbo, usuario);
                     case "usuario_anonimo":
-                        return Recupera10Noticas(acao, usuario);
+                        return Recupera10Noticas(verbo, usuario);
                     default:
                         return false;
                 }
@@ -101,11 +101,11 @@ namespace WebApiLBCA.Aplicacao
             }
         }
 
-        public bool VerificaPermissaoDeInclusaoEAlteracao(string acao, string usuario)
+        public bool VerificaPermissaoDeInclusaoEAlteracao(string verbo, string usuario)
         {
             try
             {
-                if (usuario == _configuration["Permissoes:DeInclusaoEAlteracao"] && acao == "Post" || acao == "Put")
+                if (usuario == _configuration["Permissoes:DeInclusaoEAlteracao"] && verbo == "POST" || verbo == "PUT")
                 {
                     return true;
                 }
@@ -120,11 +120,11 @@ namespace WebApiLBCA.Aplicacao
             }
         }
 
-        public bool VerificaPermissaoDeAlterarEExcluir(string acao, string usuario)
+        public bool VerificaPermissaoDeAlterarEExcluir(string verbo, string usuario)
         {
             try
             {
-                if (usuario == _configuration["Permissoes:DeAlterarEExcluir"] && acao == "Put" || acao == "Delete")
+                if (usuario == _configuration["Permissoes:DeAlterarEExcluir"] && verbo == "PUT" || verbo == "DELETE")
                 {
                     return true;
                 }
@@ -139,11 +139,11 @@ namespace WebApiLBCA.Aplicacao
             }
         }
 
-        public bool VerificaPermissaoDeRecuperarTodasNoticias(string acao, string usuarioRecebido)
+        public bool VerificaPermissaoDeRecuperarTodasNoticias(string verbo, string usuarioRecebido)
         {
             try
             {
-                if (usuarioRecebido == _configuration["Permissoes:DeRecuperarTodasNoticias"] && acao == "Put" || acao == "Delete")
+                if (usuarioRecebido == _configuration["Permissoes:DeRecuperarTodasNoticias"] && verbo == "PUT" || verbo == "DELETE")
                 {
                     return true;
                 }
@@ -158,11 +158,11 @@ namespace WebApiLBCA.Aplicacao
             }
         }
 
-        public bool Recupera10Noticas(string acao, string usuarioRecebido)
+        public bool Recupera10Noticas(string verbo, string usuarioRecebido)
         {
             try
             {
-                if (usuarioRecebido == _configuration["Permissoes:DeRecuperar10Noticias"] && acao == "Get")
+                if (usuarioRecebido == _configuration["Permissoes:DeRecuperar10Noticias"] && verbo == "GET")
                 {
                     return true;
                 }

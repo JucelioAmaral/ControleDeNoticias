@@ -68,7 +68,7 @@ namespace WebApiLBCA.Application
                     {
                         Titulo = noticia.Titulo,
                         InfoNoticia = noticia.InfoNoticia,
-                        DataCadastro = DateTime.Now,
+                        DataCadastro =noticia.DataCadastro,
                         ClassificacaoId = noticia.ClassificacaoId
                     };
                     ArrayNoticias.Add(not);

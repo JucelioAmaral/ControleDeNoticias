@@ -10,7 +10,7 @@ namespace WebApiLBCA.Aplicacao.Contrato
     public interface IUsuarioServico
     {
         Task<bool> VerificaAutenticacaoUsuario(string login, string senha);
-        bool VerificaPermissaoDoLoginDoUsuario(string acao, string usuario);
-        bool VerificaPermissaoDeRecuperarTodasNoticias(string acao, string usuario);
+        bool VerificaPermissaoDoLoginDoUsuario(string verbo, string usuario);
+        bool VerificaPermissaoDeRecuperarTodasNoticias(string verbo, string usuario);
     }
 }
